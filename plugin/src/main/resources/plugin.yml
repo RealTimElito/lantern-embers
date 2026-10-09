@@ -1,0 +1,18 @@
+name: LanternEmbers
+version: 1.0.0
+main: dev.gigglebyte.lanternembers.LanternEmbersPlugin
+api-version: '1.21'
+load: POSTWORLD
+commands:
+  lantern:
+    description: Lantern hour
+    usage: /lantern <join|stop|offer|yes>
+    permission: lanternembers.use
+  embers:
+    description: Embers week
+    usage: /embers [light|dark]
+    permission: lanternembers.use
+permissions:
+  lanternembers.use:
+    description: Use lantern and embers
+    default: true

@@ -1,0 +1,6 @@
+server-port: 25599
+java-exit: 0
+done: [21:10:09] [Server thread/INFO]: Done (9.476s)! For help, type "help"
+Enabling LanternEmbers: [21:10:08] [Server thread/INFO]: [LanternEmbers] Enabling LanternEmbers v1.0.0
+plugin-disabled: [21:10:09] [Server thread/INFO]: [LanternEmbers] Disabling LanternEmbers v1.0.0
+disabled-before-done: no

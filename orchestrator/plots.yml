@@ -1,0 +1,34 @@
+world: world
+spawn:
+  x: 0
+  y: 65
+  z: 0
+board-lectern:
+  x: 0
+  y: 65
+  z: 3
+confirm-lantern:
+  x: 0
+  y: 65
+  z: 4
+stalls:
+  - id: 1
+    min: {x: 8, y: 64, z: 16}
+    max: {x: 16, y: 72, z: 24}
+    chest: {x: 12, y: 65, z: 17}
+    lantern: {x: 12, y: 66, z: 22}
+  - id: 2
+    min: {x: 28, y: 64, z: 16}
+    max: {x: 36, y: 72, z: 24}
+    chest: {x: 32, y: 65, z: 17}
+    lantern: {x: 32, y: 66, z: 22}
+  - id: 3
+    min: {x: 48, y: 64, z: 16}
+    max: {x: 56, y: 72, z: 24}
+    chest: {x: 52, y: 65, z: 17}
+    lantern: {x: 52, y: 66, z: 22}
+  - id: 4
+    min: {x: 68, y: 64, z: 16}
+    max: {x: 76, y: 72, z: 24}
+    chest: {x: 72, y: 65, z: 17}
+    lantern: {x: 72, y: 66, z: 22}

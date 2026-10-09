@@ -1,0 +1,5 @@
+plugin/build/
+plugin/.gradle/
+proof/run/
+.cursor/
+*.log

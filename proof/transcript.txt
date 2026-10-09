@@ -1,0 +1,107 @@
+world folder: /tmp/lantern-embers-proof7452047375474914951
+registry stand-in: CHEST
+
+# Phase 1
+eventLog.join("Ada", 2026-10-09T21:09:44.920544288+02:00)
+join event: {id=a374294e-220f-412b-8e8d-841e93d4fab1, type=join, player=Ada, role=builder, feed=lantern, time=2026-10-09T21:09:44.920544288+02:00}
+pages after eventLog.join:
+Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.
+Ada joined the hour.
+Lanterns
+Lanterns wait on the posts.
+Lines
+Lines show here after yes.
+Chests
+Chest moves show here.
+Open marks
+Open marks show here.
+LanternActions.join(ada)
+join() threw: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
+  at: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
+playerListName: ● Ada
+
+# Phase 2
+eventLog.mark Ada world 12 65 18 north
+mark event: {id=f405e4e6-6bcf-4fcf-9ab9-b6376591aeaa, type=mark, player=Ada, role=, feed=, time=, world=world, x=12, y=65, z=18, face=north, draft=, target=, text=, colour=, state=, item=, count=, direction=}
+Bea break cancelled: true
+Bea protect text: That edge stays with Ada.
+Ada break cancelled: false
+piston cancelled: true
+SIGN.md contains the protect template
+
+# Phase 3
+eventLog.join Bea
+offer roof line @Bea
+offer event: {id=6f13635d-84fa-4ddf-9e13-a18709f30405, type=offer, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=roof line @Bea, target=, text=, colour=, state=, item=, count=, direction=}
+yes
+confirm: {id=1893e873-1e29-4edf-87cb-68d7ddc682b5, type=confirm, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=6f13635d-84fa-4ddf-9e13-a18709f30405, text=, colour=, state=, item=, count=, direction=}
+line: {id=ac606dfd-1d22-40fc-af69-3e5d2963d108, type=line, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=roof line @Bea, colour=gold, state=, item=, count=, direction=}
+offer secret beam
+
+# Phase 4
+stall lantern new events: 1
+presence: presence Ada lit
+dark: {id=02a1d906-8691-439b-aa4b-0caf00a60048, type=presence, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=, colour=, state=unlit, item=, count=, direction=}
+chest: {id=20d166b2-d826-4dfc-969b-541ace199fad, type=chest, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=, colour=, state=, item=OAK_PLANKS, count=4, direction=in}
+other chest events added: 0
+offer porch
+confirm lantern click
+porch confirm: {id=e7a9d8af-451c-43c5-902c-65223d998181, type=confirm, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=9713548f-5f4b-481c-b471-33470c06c489, text=, colour=, state=, item=, count=, direction=}
+porch line: {id=546e5cab-a2bd-4ff4-94c6-afea20d8d783, type=line, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=porch, colour=gold, state=, item=, count=, direction=}
+final pages:
+Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.
+Ada joined the hour.
+Lanterns
+Ada lantern unlit.
+Lines
+Ada: roof line @Bea
+Ada: porch
+Chests
+Ada in 4 OAK_PLANKS
+Open marks
+Ada 12 65 18 north
+
+# Source scan
+source scan: none
+
+Ada chat:
+  Draft held.
+  Ada: roof line @Bea
+  Ada added a line.
+  Draft held.
+  Draft held.
+  Ada: porch
+  Ada added a line.
+Bea chat:
+  That edge stays with Ada.
+  Ada: roof line @Bea
+  Ada added a line.
+  Ada: porch
+  Ada added a line.
+Ada tab: [● Ada]
+book-give: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
+log:
+{"id":"a374294e-220f-412b-8e8d-841e93d4fab1","type":"join","player":"Ada","role":"builder","feed":"lantern","time":"2026-10-09T21:09:44.920544288+02:00"}
+{"id":"85ff82ba-4d51-45ca-a8a7-f3b1332e78b2","type":"join","player":"Ada","role":"builder","feed":"lantern","time":"2026-10-09T21:09:44.922184079+02:00"}
+{"id":"f405e4e6-6bcf-4fcf-9ab9-b6376591aeaa","type":"mark","player":"Ada","world":"world","x":12,"y":65,"z":18,"face":"north"}
+{"id":"ee0a9cc1-2073-4204-8f46-9c62a8aae490","type":"join","player":"Bea","role":"builder","feed":"lantern","time":"2026-10-09T21:09:44.976133709+02:00"}
+{"id":"6f13635d-84fa-4ddf-9e13-a18709f30405","type":"offer","player":"Ada","draft":"roof line @Bea"}
+{"id":"1893e873-1e29-4edf-87cb-68d7ddc682b5","type":"confirm","player":"Ada","target":"6f13635d-84fa-4ddf-9e13-a18709f30405"}
+{"id":"ac606dfd-1d22-40fc-af69-3e5d2963d108","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
+{"id":"1857dcb8-a524-4c08-ba7f-6466fc46a36a","type":"offer","player":"Ada","draft":"secret beam"}
+{"id":"9a2a8e2a-61d7-44ed-acd5-695a37f8a84d","type":"presence","player":"Ada","state":"lit"}
+{"id":"02a1d906-8691-439b-aa4b-0caf00a60048","type":"presence","player":"Ada","state":"unlit"}
+{"id":"20d166b2-d826-4dfc-969b-541ace199fad","type":"chest","player":"Ada","item":"OAK_PLANKS","count":4,"direction":"in"}
+{"id":"9713548f-5f4b-481c-b471-33470c06c489","type":"offer","player":"Ada","draft":"porch"}
+{"id":"e7a9d8af-451c-43c5-902c-65223d998181","type":"confirm","player":"Ada","target":"9713548f-5f4b-481c-b471-33470c06c489"}
+{"id":"546e5cab-a2bd-4ff4-94c6-afea20d8d783","type":"line","player":"Ada","text":"porch","colour":"gold"}
+
+# Paper load
+command: proof/run-paper.sh
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+server-port: 25599
+done: [21:10:09] [Server thread/INFO]: Done (9.476s)! For help, type "help"
+Enabling LanternEmbers: [21:10:08] [Server thread/INFO]: [LanternEmbers] Enabling LanternEmbers v1.0.0
+plugin-disabled: [21:10:09] [Server thread/INFO]: [LanternEmbers] Disabling LanternEmbers v1.0.0
+disabled-before-done: no
+java-exit: 0
