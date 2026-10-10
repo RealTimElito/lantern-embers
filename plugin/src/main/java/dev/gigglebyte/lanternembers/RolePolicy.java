@@ -46,7 +46,7 @@ final class RolePolicy {
     if (!confirmed) {
       return actor.equals(marker);
     }
-    return "builder".equals(role) && inHour;
+    return actor.equals(marker) || ("builder".equals(role) && inHour);
   }
 
   static boolean mayPlace(

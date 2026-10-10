@@ -159,6 +159,7 @@ async function main() {
   );
   const adaPhraseChat = adaChat.slice(adaBeforePhrase).join("\n");
   say("Ada chat after phrase click:\n" + adaPhraseChat);
+  check(adaPhraseChat.includes("Held:"), "phrase stick tells the clicker the held phrase");
   check(!adaPhraseChat.includes("Draft held"), "phrase stick does not announce the draft");
 
   await command(ada, "/lantern yes");

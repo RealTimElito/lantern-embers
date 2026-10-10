@@ -10,7 +10,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-/** Phrase stick writes an offer. It does not send chat. */
+/** Phrase stick writes an offer and tells the clicker the held phrase. */
 public final class PhraseListener implements Listener {
   private final EventLog eventLog;
   private final Strings strings;
@@ -50,6 +50,7 @@ public final class PhraseListener implements Listener {
       return;
     }
     actions.offerQuiet(player, phrase);
+    strings.send(player, "held-phrase", Map.of("text", phrase));
   }
 
   private static void deny(PlayerInteractEvent event) {
