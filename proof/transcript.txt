@@ -1,107 +1,111 @@
-world folder: /tmp/lantern-embers-proof7452047375474914951
-registry stand-in: CHEST
+port: 25597
+version: 1.21.11
+spawned Ada and Bea
+Ada inventory:
+{"type":946,"count":1,"metadata":0,"nbt":null,"components":[{"type":"custom_data","data":{"type":"compound","value":{"PublicBukkitValues":{"type":"compound","value":{"lanternembers:mark_tool":{"type":"byte","value":1}}}}}},{"type":"custom_name","data":{"type":"compound","value":{"italic":{"type":"byte","value":0},"text":{"type":"string","value":"Mark stick"}}}}],"removedComponents":[],"componentMap":{},"stackId":null,"name":"stick","displayName":"Stick","stackSize":64,"slot":36}
+{"type":946,"count":1,"metadata":0,"nbt":null,"components":[{"type":"custom_data","data":{"type":"compound","value":{"PublicBukkitValues":{"type":"compound","value":{"lanternembers:phrase_tool":{"type":"byte","value":1}}}}}},{"type":"custom_name","data":{"type":"compound","value":{"italic":{"type":"byte","value":0},"text":{"type":"string","value":"Phrase stick"}}}}],"removedComponents":[],"componentMap":{},"stackId":null,"name":"stick","displayName":"Stick","stackSize":64,"slot":37}
+{"type":1221,"count":1,"metadata":0,"nbt":null,"components":[{"type":"written_book_content","data":{"rawTitle":"Hour book","author":"Lantern","generation":0,"pages":[{"content":{"type":"string","value":"Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.\nAda joined the hour."}},{"content":{"type":"string","value":"Lanterns\nLanterns wait on the posts.\nLines\nAda: roof line @Bea\nAda: oak\nAda: secret spruce\nAda: roof line @Bea\nAda: oak\nAda: secret spruce\nAda: roof line @Bea\nAda: oak\nAda: secret spruce\nChests"}},{"content":{"type":"string","value":"Chest moves show here.\nOpen marks\nOpen marks show here."}}],"resolved":false}}],"removedComponents":[],"componentMap":{},"stackId":null,"name":"written_book","displayName":"Written Book","stackSize":16,"slot":38}
+pass: join gives a book
+pass: join gives the mark stick
+pass: join gives the phrase stick
+pass: join writes no exception in the server log
+Bea after vanilla chat:
 
-# Phase 1
-eventLog.join("Ada", 2026-10-09T21:09:44.920544288+02:00)
-join event: {id=a374294e-220f-412b-8e8d-841e93d4fab1, type=join, player=Ada, role=builder, feed=lantern, time=2026-10-09T21:09:44.920544288+02:00}
-pages after eventLog.join:
-Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.
-Ada joined the hour.
-Lanterns
-Lanterns wait on the posts.
-Lines
-Lines show here after yes.
-Chests
-Chest moves show here.
-Open marks
-Open marks show here.
-LanternActions.join(ada)
-join() threw: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
-  at: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
-playerListName: ● Ada
-
-# Phase 2
-eventLog.mark Ada world 12 65 18 north
-mark event: {id=f405e4e6-6bcf-4fcf-9ab9-b6376591aeaa, type=mark, player=Ada, role=, feed=, time=, world=world, x=12, y=65, z=18, face=north, draft=, target=, text=, colour=, state=, item=, count=, direction=}
-Bea break cancelled: true
-Bea protect text: That edge stays with Ada.
-Ada break cancelled: false
-piston cancelled: true
-SIGN.md contains the protect template
-
-# Phase 3
-eventLog.join Bea
-offer roof line @Bea
-offer event: {id=6f13635d-84fa-4ddf-9e13-a18709f30405, type=offer, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=roof line @Bea, target=, text=, colour=, state=, item=, count=, direction=}
-yes
-confirm: {id=1893e873-1e29-4edf-87cb-68d7ddc682b5, type=confirm, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=6f13635d-84fa-4ddf-9e13-a18709f30405, text=, colour=, state=, item=, count=, direction=}
-line: {id=ac606dfd-1d22-40fc-af69-3e5d2963d108, type=line, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=roof line @Bea, colour=gold, state=, item=, count=, direction=}
-offer secret beam
-
-# Phase 4
-stall lantern new events: 1
-presence: presence Ada lit
-dark: {id=02a1d906-8691-439b-aa4b-0caf00a60048, type=presence, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=, colour=, state=unlit, item=, count=, direction=}
-chest: {id=20d166b2-d826-4dfc-969b-541ace199fad, type=chest, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=, colour=, state=, item=OAK_PLANKS, count=4, direction=in}
-other chest events added: 0
-offer porch
-confirm lantern click
-porch confirm: {id=e7a9d8af-451c-43c5-902c-65223d998181, type=confirm, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=9713548f-5f4b-481c-b471-33470c06c489, text=, colour=, state=, item=, count=, direction=}
-porch line: {id=546e5cab-a2bd-4ff4-94c6-afea20d8d783, type=line, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=porch, colour=gold, state=, item=, count=, direction=}
-final pages:
-Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.
-Ada joined the hour.
-Lanterns
-Ada lantern unlit.
-Lines
+pass: Bea on mentions does not see Ada vanilla chat
+pass: draft stays out of Bea chat
+pass: offer stored
+Bea after yes @Bea:
 Ada: roof line @Bea
-Ada: porch
-Chests
-Ada in 4 OAK_PLANKS
-Open marks
-Ada 12 65 18 north
+pass: Bea on mentions sees a line that contains @Bea
+pass: yes writes the line
+pass: phrase stick is in hand range
+phrase offers: [{"id":"3a939fff-fcf7-4ccf-881d-e9b700b25d19","type":"offer","player":"Ada","draft":"oak"}]
+pass: phrase-stick click writes one offer
+pass: phrase-stick click sends no chat to Bea
+Ada chat after phrase click:
 
-# Source scan
-source scan: none
+pass: phrase stick does not announce the draft
+pass: yes after the phrase stick writes the line
+Bea on summary:
+Ada added a line.
+pass: Bea on summary does not see the draft text
+pass: Bea on summary hears the template
+pass: summary yes still writes the line in the log
+pass: a block is in reach to mark
+marks: [{"id":"b3ade824-d0dd-4557-9657-15d572889716","type":"mark","player":"Ada","world":"world","x":9,"y":100,"z":8,"face":"up"}]
+pass: mark stick writes Ada's mark
+block before yes: oak_planks after: oak_planks
+pass: before yes, Bea the builder cannot break Ada's mark
+pass: yes on a mark writes confirm and no line
+block after builder yes: air
+pass: after yes, Bea as builder can break the mark
+lookout block oak_planks -> oak_planks
+Bea chat on lookout dig:
+That stays with the builder.
+pass: Bea as lookout still cannot break a confirmed mark
+pass: second mark was confirmed
 
-Ada chat:
-  Draft held.
-  Ada: roof line @Bea
-  Ada added a line.
-  Draft held.
-  Draft held.
-  Ada: porch
-  Ada added a line.
-Bea chat:
-  That edge stays with Ada.
-  Ada: roof line @Bea
-  Ada added a line.
-  Ada: porch
-  Ada added a line.
-Ada tab: [● Ada]
-book-give: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
 log:
-{"id":"a374294e-220f-412b-8e8d-841e93d4fab1","type":"join","player":"Ada","role":"builder","feed":"lantern","time":"2026-10-09T21:09:44.920544288+02:00"}
-{"id":"85ff82ba-4d51-45ca-a8a7-f3b1332e78b2","type":"join","player":"Ada","role":"builder","feed":"lantern","time":"2026-10-09T21:09:44.922184079+02:00"}
-{"id":"f405e4e6-6bcf-4fcf-9ab9-b6376591aeaa","type":"mark","player":"Ada","world":"world","x":12,"y":65,"z":18,"face":"north"}
-{"id":"ee0a9cc1-2073-4204-8f46-9c62a8aae490","type":"join","player":"Bea","role":"builder","feed":"lantern","time":"2026-10-09T21:09:44.976133709+02:00"}
-{"id":"6f13635d-84fa-4ddf-9e13-a18709f30405","type":"offer","player":"Ada","draft":"roof line @Bea"}
-{"id":"1893e873-1e29-4edf-87cb-68d7ddc682b5","type":"confirm","player":"Ada","target":"6f13635d-84fa-4ddf-9e13-a18709f30405"}
-{"id":"ac606dfd-1d22-40fc-af69-3e5d2963d108","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
-{"id":"1857dcb8-a524-4c08-ba7f-6466fc46a36a","type":"offer","player":"Ada","draft":"secret beam"}
-{"id":"9a2a8e2a-61d7-44ed-acd5-695a37f8a84d","type":"presence","player":"Ada","state":"lit"}
-{"id":"02a1d906-8691-439b-aa4b-0caf00a60048","type":"presence","player":"Ada","state":"unlit"}
-{"id":"20d166b2-d826-4dfc-969b-541ace199fad","type":"chest","player":"Ada","item":"OAK_PLANKS","count":4,"direction":"in"}
-{"id":"9713548f-5f4b-481c-b471-33470c06c489","type":"offer","player":"Ada","draft":"porch"}
-{"id":"e7a9d8af-451c-43c5-902c-65223d998181","type":"confirm","player":"Ada","target":"9713548f-5f4b-481c-b471-33470c06c489"}
-{"id":"546e5cab-a2bd-4ff4-94c6-afea20d8d783","type":"line","player":"Ada","text":"porch","colour":"gold"}
-
-# Paper load
-command: proof/run-paper.sh
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-server-port: 25599
-done: [21:10:09] [Server thread/INFO]: Done (9.476s)! For help, type "help"
-Enabling LanternEmbers: [21:10:08] [Server thread/INFO]: [LanternEmbers] Enabling LanternEmbers v1.0.0
-plugin-disabled: [21:10:09] [Server thread/INFO]: [LanternEmbers] Disabling LanternEmbers v1.0.0
-disabled-before-done: no
-java-exit: 0
+{"id":"2107af59-ca4a-4a5b-8a0c-b901f6b6ada9","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:26:45.634264159+02:00"}
+{"id":"872673b7-bab5-47f8-8866-c3cb44fbce66","type":"join","player":"Bea","role":"builder","feed":"mentions","time":"2026-10-10T11:26:46.530699511+02:00"}
+{"id":"71d2198f-3381-47d9-a09a-151d7071f78f","type":"offer","player":"Ada","draft":"roof line @Bea"}
+{"id":"90ab2edb-9f46-4e02-b26f-b1eb1fc9ba1c","type":"confirm","player":"Ada","target":"71d2198f-3381-47d9-a09a-151d7071f78f"}
+{"id":"57f69a14-e87c-421c-bbcd-aab3af1454ce","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
+{"id":"b5f316f3-671d-4a75-9dc7-68effa71e207","type":"offer","player":"Ada","draft":"oak"}
+{"id":"3aa3a0e2-dd1e-4831-be8e-7f46f0e23bd2","type":"confirm","player":"Ada","target":"b5f316f3-671d-4a75-9dc7-68effa71e207"}
+{"id":"d0393197-e6b7-4b5f-859f-0baa53d87703","type":"line","player":"Ada","text":"oak","colour":"gold"}
+{"id":"2c6cdf85-6999-4ff7-8b73-706a322c985f","type":"feed","player":"Bea","role":"builder","feed":"summary","time":"2026-10-10T11:26:50.334662002+02:00"}
+{"id":"116267dc-dbae-4526-bdb5-ae98bfb867fe","type":"offer","player":"Ada","draft":"secret spruce"}
+{"id":"e8f1a497-e3f2-413b-98a1-950c373cf1dd","type":"confirm","player":"Ada","target":"116267dc-dbae-4526-bdb5-ae98bfb867fe"}
+{"id":"271aef34-f6d2-4e80-b3a0-f27d9670b309","type":"line","player":"Ada","text":"secret spruce","colour":"gold"}
+{"id":"c27004fa-d6b5-4c12-b3d2-691654d95b75","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:28:37.839753615+02:00"}
+{"id":"93df7054-cff0-49b6-8052-eaf6cee85f88","type":"join","player":"Bea","role":"builder","feed":"mentions","time":"2026-10-10T11:28:38.735485723+02:00"}
+{"id":"2a06c0c8-a043-46e9-8f4b-2b5c85fff722","type":"offer","player":"Ada","draft":"roof line @Bea"}
+{"id":"e47d2b93-f02c-4958-bea8-715c44bef62b","type":"confirm","player":"Ada","target":"2a06c0c8-a043-46e9-8f4b-2b5c85fff722"}
+{"id":"e782d833-7de7-41e8-a9ca-a5c762b2e0b0","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
+{"id":"1d921cae-09cc-4c5b-9c94-ddbbfbe196f3","type":"offer","player":"Ada","draft":"oak"}
+{"id":"bc4ddc2d-c729-43db-8fb8-a14b3be53298","type":"confirm","player":"Ada","target":"1d921cae-09cc-4c5b-9c94-ddbbfbe196f3"}
+{"id":"b065d4d9-7258-4aab-8431-abb4a107d8f0","type":"line","player":"Ada","text":"oak","colour":"gold"}
+{"id":"2d62020f-89da-428a-b79b-a5aa30da65f0","type":"feed","player":"Bea","role":"builder","feed":"summary","time":"2026-10-10T11:28:42.539472946+02:00"}
+{"id":"8ecee350-ba5f-4a5c-b7ec-eb712801ca00","type":"offer","player":"Ada","draft":"secret spruce"}
+{"id":"1b44d4e9-86c1-4486-a37b-35473e600e8a","type":"confirm","player":"Ada","target":"8ecee350-ba5f-4a5c-b7ec-eb712801ca00"}
+{"id":"e4a7f0e5-0650-4a6a-819f-0ee0fbf72819","type":"line","player":"Ada","text":"secret spruce","colour":"gold"}
+{"id":"bc050405-f031-41b6-98b8-20c4a7316ab3","type":"mark","player":"Ada","world":"world","x":9,"y":100,"z":8,"face":"up"}
+{"id":"a3ef1b5d-d7d2-4b68-9751-5a68506edd8c","type":"confirm","player":"Ada","target":"bc050405-f031-41b6-98b8-20c4a7316ab3"}
+{"id":"ba3bf171-f64d-4971-8db8-4fce4ff9d571","type":"mark","player":"Ada","world":"world","x":8,"y":100,"z":9,"face":"up"}
+{"id":"c6e761c6-71c5-4202-92fb-7023413bfd95","type":"confirm","player":"Ada","target":"ba3bf171-f64d-4971-8db8-4fce4ff9d571"}
+{"id":"0f5b8496-a1bc-4fb1-90c3-a6562a82e749","type":"join","player":"Bea","role":"lookout","feed":"mentions","time":"2026-10-10T11:28:49.164579311+02:00"}
+{"id":"ae69a7a4-ad29-4a4b-b762-0ea14c1063b8","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:30:08.134425009+02:00"}
+{"id":"2a1f211c-0b8d-4f44-91a7-d8d0832627e5","type":"join","player":"Bea","role":"builder","feed":"mentions","time":"2026-10-10T11:30:09.028978628+02:00"}
+{"id":"6bac9eb4-3f99-4c81-bb39-94695a6fcae4","type":"offer","player":"Ada","draft":"roof line @Bea"}
+{"id":"1089bb96-8611-40aa-8854-d539aaa8f07e","type":"confirm","player":"Ada","target":"6bac9eb4-3f99-4c81-bb39-94695a6fcae4"}
+{"id":"d8334979-fd69-45a6-9dd9-1ac4474bc402","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
+{"id":"70b8363e-91cb-47bd-a229-bb9b7fcbd100","type":"offer","player":"Ada","draft":"oak"}
+{"id":"bcbd28db-8740-4d5a-8a4e-246acaebf10a","type":"confirm","player":"Ada","target":"70b8363e-91cb-47bd-a229-bb9b7fcbd100"}
+{"id":"8f272cb0-1ff0-4d63-8b81-48866fcd12f3","type":"line","player":"Ada","text":"oak","colour":"gold"}
+{"id":"3afb5f12-2d95-4769-bd50-8a60df503b25","type":"feed","player":"Bea","role":"builder","feed":"summary","time":"2026-10-10T11:30:12.832326345+02:00"}
+{"id":"c1132623-ba43-42bf-a5a5-a9a98ec09600","type":"offer","player":"Ada","draft":"secret spruce"}
+{"id":"e20aea04-f867-4e40-ae4b-63811c0b57a3","type":"confirm","player":"Ada","target":"c1132623-ba43-42bf-a5a5-a9a98ec09600"}
+{"id":"46bb95f4-4423-44cd-8652-67c020c143fe","type":"line","player":"Ada","text":"secret spruce","colour":"gold"}
+{"id":"0b6f387d-46a1-4027-9b65-b2980148eb30","type":"mark","player":"Ada","world":"world","x":9,"y":100,"z":8,"face":"up"}
+{"id":"fead41c8-6de1-40c1-a657-fb971cd41209","type":"confirm","player":"Ada","target":"0b6f387d-46a1-4027-9b65-b2980148eb30"}
+{"id":"eac56a60-0f2d-4e5e-a305-39fab0d109e7","type":"mark","player":"Ada","world":"world","x":8,"y":100,"z":9,"face":"up"}
+{"id":"5417c80d-62be-4f21-83d0-ce7de9811341","type":"confirm","player":"Ada","target":"eac56a60-0f2d-4e5e-a305-39fab0d109e7"}
+{"id":"6c7b931b-f316-4682-a0ae-b1671a5d73ac","type":"join","player":"Bea","role":"lookout","feed":"mentions","time":"2026-10-10T11:30:19.491057245+02:00"}
+{"id":"38e68058-3c9a-4770-b7e3-b59c0a4dee99","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:30:58.140814531+02:00"}
+{"id":"f94ea34d-e316-49cc-bf97-638c527f871e","type":"join","player":"Bea","role":"builder","feed":"mentions","time":"2026-10-10T11:30:59.035891354+02:00"}
+{"id":"04063665-24fe-4894-adf3-3ece647b49e0","type":"offer","player":"Ada","draft":"roof line @Bea"}
+{"id":"884ea06b-2120-48ba-8509-1bd525fa70b2","type":"confirm","player":"Ada","target":"04063665-24fe-4894-adf3-3ece647b49e0"}
+{"id":"6478cffe-c112-4367-ac7a-c42a95847c86","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
+{"id":"3a939fff-fcf7-4ccf-881d-e9b700b25d19","type":"offer","player":"Ada","draft":"oak"}
+{"id":"4c9f5c64-fc7b-4e01-822a-109d2017aa8a","type":"confirm","player":"Ada","target":"3a939fff-fcf7-4ccf-881d-e9b700b25d19"}
+{"id":"64eb1128-b4f9-42d7-8476-f1f24dfcfbb6","type":"line","player":"Ada","text":"oak","colour":"gold"}
+{"id":"6f389eea-fa08-43c2-a91a-50915e351b3d","type":"feed","player":"Bea","role":"builder","feed":"summary","time":"2026-10-10T11:31:02.844826190+02:00"}
+{"id":"d6892885-8ac9-48bf-bcf1-fc5597d5d77b","type":"offer","player":"Ada","draft":"secret spruce"}
+{"id":"b2158422-aaa1-4cb1-98b9-6cea55351698","type":"confirm","player":"Ada","target":"d6892885-8ac9-48bf-bcf1-fc5597d5d77b"}
+{"id":"b3fde8d4-bfe7-4987-a955-8fd7c2cc4349","type":"line","player":"Ada","text":"secret spruce","colour":"gold"}
+{"id":"b3ade824-d0dd-4557-9657-15d572889716","type":"mark","player":"Ada","world":"world","x":9,"y":100,"z":8,"face":"up"}
+{"id":"b63fb117-6e6e-45aa-bb7c-15fe7e455d88","type":"confirm","player":"Ada","target":"b3ade824-d0dd-4557-9657-15d572889716"}
+{"id":"af585b7d-bab0-42c5-89f8-d66bca25b9d0","type":"mark","player":"Ada","world":"world","x":8,"y":100,"z":9,"face":"up"}
+{"id":"fb551bca-7303-4d39-954c-7f65e2333246","type":"confirm","player":"Ada","target":"af585b7d-bab0-42c5-89f8-d66bca25b9d0"}
+{"id":"742e4b42-70cb-4222-a48e-b0fabb99faf1","type":"join","player":"Bea","role":"lookout","feed":"mentions","time":"2026-10-10T11:31:09.525077323+02:00"}

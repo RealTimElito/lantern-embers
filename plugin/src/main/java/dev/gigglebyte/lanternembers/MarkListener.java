@@ -1,6 +1,7 @@
 package dev.gigglebyte.lanternembers;
 
 import java.util.Locale;
+import java.util.Map;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.Event;
@@ -13,9 +14,11 @@ import org.bukkit.inventory.EquipmentSlot;
 /** Right-click with the mark stick writes one mark and cancels the interact. */
 public final class MarkListener implements Listener {
   private final EventLog eventLog;
+  private final Strings strings;
 
-  public MarkListener(EventLog eventLog) {
+  public MarkListener(EventLog eventLog, Strings strings) {
     this.eventLog = eventLog;
+    this.strings = strings;
   }
 
   @EventHandler(ignoreCancelled = false)
@@ -37,6 +40,11 @@ public final class MarkListener implements Listener {
     event.setCancelled(true);
     event.setUseInteractedBlock(Event.Result.DENY);
     event.setUseItemInHand(Event.Result.DENY);
+    String role = eventLog.roleOf(event.getPlayer().getName());
+    if (!eventLog.inHour(event.getPlayer().getName()) || !RolePolicy.mayMark(role)) {
+      strings.send(event.getPlayer(), "stays-lookout", Map.of());
+      return;
+    }
     BlockFace face = event.getBlockFace();
     eventLog.mark(
         event.getPlayer().getName(),

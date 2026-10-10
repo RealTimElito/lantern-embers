@@ -4,7 +4,8 @@ Frozen. Plugin must not invent commands while Access edits strings.
 
 | Input | Events | Who hears it |
 | --- | --- | --- |
-| `/lantern join` | join | The joining player receives the hour book. Tab list shows the tab mark. |
+| `/lantern join <role> <feed>` | join | Role is lookout, builder, quartermaster, or storykeeper. Feed is full, mentions, or summary. Missing args write nothing and reply with both lists. Tab mark is the role and the name. |
+| `/lantern feed <mode>` | feed | Changes feed without leaving the hour. |
 | `/lantern stop` | stop | The stopping player only. |
 | `/lantern offer <draft>` | offer | The offerer only, with the draft-held string. The draft is not chat. |
 | `/lantern yes` | confirm, and line if the target is an offer | Joined players, and any online player named by an `@Name` in the text, hear the published line and the summary template. |

@@ -28,27 +28,32 @@ public final class ProtectListener implements Listener {
 
   @EventHandler(ignoreCancelled = true)
   public void onBreak(BlockBreakEvent event) {
-    String owner = owner(event.getBlock());
-    if (owner == null || owner.equals(event.getPlayer().getName())) {
-      return;
-    }
-    event.setCancelled(true);
-    strings.send(event.getPlayer(), "protect", Map.of("player", owner));
+    deny(
+        event,
+        event.getPlayer(),
+        event.getBlock(),
+        RolePolicy.mayBreak(
+            event.getPlayer().getName(),
+            role(event.getPlayer()),
+            eventLog.inHour(event.getPlayer().getName()),
+            marker(event.getBlock()),
+            confirmed(event.getBlock()),
+            marked(event.getBlock())));
   }
 
   @EventHandler(ignoreCancelled = true)
   public void onPlace(BlockPlaceEvent event) {
     if (event instanceof BlockMultiPlaceEvent multi) {
       for (BlockState state : multi.getReplacedBlockStates()) {
-        if (blocked(state.getBlock(), event.getPlayer().getName())) {
-          event.setCancelled(true);
+        if (!placedOk(event.getPlayer(), state.getBlock())) {
+          denyPlace(event, event.getPlayer(), state.getBlock());
           return;
         }
       }
       return;
     }
-    if (blocked(event.getBlockPlaced(), event.getPlayer().getName())) {
-      event.setCancelled(true);
+    if (!placedOk(event.getPlayer(), event.getBlockPlaced())) {
+      denyPlace(event, event.getPlayer(), event.getBlockPlaced());
     }
   }
 
@@ -97,9 +102,72 @@ public final class ProtectListener implements Listener {
     return hit;
   }
 
-  private boolean blocked(Block block, String player) {
-    String owner = owner(block);
-    return owner != null && !owner.equals(player);
+  private void denyPlace(BlockPlaceEvent event, org.bukkit.entity.Player player, Block block) {
+    event.setCancelled(true);
+    tell(player, block);
+  }
+
+  private void deny(BlockBreakEvent event, org.bukkit.entity.Player player, Block block, boolean allowed) {
+    if (allowed) {
+      return;
+    }
+    event.setCancelled(true);
+    tell(player, block);
+  }
+
+  private boolean placedOk(org.bukkit.entity.Player player, Block block) {
+    return RolePolicy.mayPlace(
+        player.getName(),
+        role(player),
+        eventLog.inHour(player.getName()),
+        marker(block),
+        confirmed(block),
+        marked(block));
+  }
+
+  private void tell(org.bukkit.entity.Player player, Block block) {
+    EventLog.Edge edge = edge(block);
+    if (edge != null && !edge.confirmed() && !player.getName().equals(edge.marker())) {
+      strings.send(player, "protect", Map.of("player", edge.marker()));
+      return;
+    }
+    if (edge != null && edge.confirmed()) {
+      strings.send(player, "stays-builder", Map.of());
+      return;
+    }
+    if ("storykeeper".equals(role(player))) {
+      strings.send(player, "stays-builder", Map.of());
+      return;
+    }
+    strings.send(player, "stays-mark", Map.of());
+  }
+
+  private String role(org.bukkit.entity.Player player) {
+    return eventLog.roleOf(player.getName());
+  }
+
+  private boolean marked(Block block) {
+    return edge(block) != null;
+  }
+
+  private boolean confirmed(Block block) {
+    EventLog.Edge edge = edge(block);
+    return edge != null && edge.confirmed();
+  }
+
+  private String marker(Block block) {
+    EventLog.Edge edge = edge(block);
+    if (edge == null) {
+      return null;
+    }
+    return edge.marker();
+  }
+
+  private EventLog.Edge edge(Block block) {
+    if (block.getWorld() == null) {
+      return null;
+    }
+    return eventLog.edgeAt(block.getWorld().getName(), block.getX(), block.getY(), block.getZ());
   }
 
   private String owner(Block block) {

@@ -60,7 +60,7 @@ import org.mockito.MockedStatic;
  * because Paper ItemStack needs a server.
  */
 class RealmTranscriptTest {
-  private static final Path TRANSCRIPT = Path.of("../proof/transcript.txt");
+  private static final Path TRANSCRIPT = Path.of("../proof/unit-transcript.txt");
   private static final List<String> BANNED =
       List.of(
           "missed",
@@ -142,14 +142,14 @@ class RealmTranscriptTest {
   private void phase1() throws Exception {
     transcript.append("\n# Phase 1\n");
     OffsetDateTime joined = OffsetDateTime.now();
-    transcript.append("eventLog.join(\"Ada\", ").append(joined).append(")\n");
-    eventLog.join("Ada", joined);
+    transcript.append("eventLog.join(\"Ada\", lookout, full, ").append(joined).append(")\n");
+    eventLog.join("Ada", "lookout", "full", joined);
     Map<String, String> join = findJoin("Ada");
     check(join != null, "phase 1: join event missing");
     if (join != null) {
       transcript.append("join event: ").append(join).append('\n');
-      check("builder".equals(join.get("role")), "phase 1: role");
-      check("lantern".equals(join.get("feed")), "phase 1: feed");
+      check("lookout".equals(join.get("role")), "phase 1: role");
+      check("full".equals(join.get("feed")), "phase 1: feed");
       check("Ada".equals(join.get("player")), "phase 1: player");
       String time = join.get("time");
       check(time != null && time.matches(".*[+-]\\d{2}:\\d{2}.*"), "phase 1: offset " + time);
@@ -163,7 +163,7 @@ class RealmTranscriptTest {
     int before = eventLog.copy().size();
     transcript.append("LanternActions.join(ada)\n");
     try {
-      actions.join(ada);
+      actions.join(ada, "lookout", "full");
       bookGiveNote = "join() returned without throwing; book give path ran";
       transcript.append("join() returned\n");
     } catch (Throwable thrown) {
@@ -187,7 +187,7 @@ class RealmTranscriptTest {
     check(after != null && "Ada".equals(after.get("player")), "phase 1: join still Ada");
     String tab = adaTab.isEmpty() ? "" : adaTab.get(adaTab.size() - 1);
     transcript.append("playerListName: ").append(tab).append('\n');
-    check("● Ada".equals(tab), "phase 1: tab prefix " + tab);
+    check("lookout Ada".equals(tab), "phase 1: tab mark " + tab);
     String pagesAfter = pagesOf(ada);
     check(pagesAfter.contains("Ada joined the hour."), "phase 1: reflected pages");
     checkBanned(pagesAfter, "phase 1 pages after join");
@@ -238,8 +238,8 @@ class RealmTranscriptTest {
 
   private void phase3() throws Exception {
     transcript.append("\n# Phase 3\n");
-    eventLog.join("Bea", OffsetDateTime.now());
-    transcript.append("eventLog.join Bea\n");
+    eventLog.join("Bea", "builder", "mentions", OffsetDateTime.now());
+    transcript.append("eventLog.join Bea builder mentions\n");
     int beaBefore = beaChat.size();
     actions.offer(ada, "roof line @Bea");
     transcript.append("offer roof line @Bea\n");
@@ -266,7 +266,7 @@ class RealmTranscriptTest {
     check(line != null && "gold".equals(line.get("colour")), "phase 3: line colour");
     check(line != null && "roof line @Bea".equals(line.get("text")), "phase 3: line text");
     check(beaChat.contains("Ada: roof line @Bea"), "phase 3: Bea published line");
-    check(beaChat.contains("Ada added a line."), "phase 3: Bea summary");
+    check(!beaChat.contains("Ada added a line."), "phase 3: mentions heard the summary");
 
     int beaAfterYes = beaChat.size();
     actions.offer(ada, "secret beam");
@@ -305,9 +305,10 @@ class RealmTranscriptTest {
     check("Ada".equals(dark == null ? null : dark.get("player")), "phase 4: dark player");
     check(nonPresence() == nonPresenceBeforeDark, "phase 4: dark grew non-presence events");
 
+    eventLog.join("Ada", "quartermaster", "full", OffsetDateTime.now());
     int beforeChest = eventLog.copy().size();
     InventoryClickEvent intoStall = chestClick(ada, 12, 65, 17);
-    new ChestListener(eventLog, plots).onClick(intoStall);
+    new ChestListener(eventLog, plots, strings).onClick(intoStall);
     Map<String, String> chest = latestOf("chest");
     transcript.append("chest: ").append(chest).append('\n');
     check(chest != null && "Ada".equals(chest.get("player")), "phase 4: chest player");
@@ -317,12 +318,14 @@ class RealmTranscriptTest {
 
     int afterChest = eventLog.copy().size();
     InventoryClickEvent other = chestClick(ada, 1, 65, 1);
-    new ChestListener(eventLog, plots).onClick(other);
+    new ChestListener(eventLog, plots, strings).onClick(other);
     check(eventLog.copy().size() == afterChest, "phase 4: other chest wrote an event");
     transcript.append("other chest events added: ")
         .append(eventLog.copy().size() - afterChest).append('\n');
     check(beforeChest < afterChest, "phase 4: stall chest wrote");
 
+    eventLog.join("Ada", "lookout", "full", OffsetDateTime.now());
+    eventLog.feed("Bea", "builder", "full", OffsetDateTime.now());
     actions.offer(ada, "porch");
     transcript.append("offer porch\n");
     check(beaChat.stream().noneMatch(s -> s.contains("porch")), "phase 4: porch leaked before yes");
@@ -342,7 +345,7 @@ class RealmTranscriptTest {
     check(porchConfirm != null && "Ada".equals(porchConfirm.get("player")), "phase 4: porch confirm");
     check(porchLine != null && "porch".equals(porchLine.get("text")), "phase 4: porch text");
     check(beaChat.contains("Ada: porch"), "phase 4: Bea porch line");
-    check(beaChat.contains("Ada added a line."), "phase 4: Bea porch summary");
+    check(!beaChat.contains("Ada added a line."), "phase 4: full feed heard the summary");
 
     String pages = pagesOf(ada);
     transcript.append("final pages:\n").append(pages).append('\n');
@@ -351,7 +354,9 @@ class RealmTranscriptTest {
     check(pages.contains("Ada: porch"), "phase 4: confirmed porch line");
     check(pages.contains("Ada in 4 OAK_PLANKS"), "phase 4: chest row");
     check(pages.contains("Ada 12 65 18 north"), "phase 4: open mark");
-    check(!pages.contains("secret beam"), "phase 4: draft on the board");
+    check(pages.contains("Held: secret beam"), "phase 4: offerer sees the held phrase");
+    String beaPages = pagesOf(bea);
+    check(!beaPages.contains("secret beam"), "phase 4: held phrase on the other board");
     checkBanned(pages, "phase 4 pages");
     for (LogEvent event : eventLog.copy()) {
       check(event.player() != null && !event.player().isEmpty(), "event missing player " + event.type());

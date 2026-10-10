@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,10 +21,27 @@ import org.bukkit.inventory.ItemStack;
 public final class ChestListener implements Listener {
   private final EventLog eventLog;
   private final Plots plots;
+  private final Strings strings;
 
-  public ChestListener(EventLog eventLog, Plots plots) {
+  public ChestListener(EventLog eventLog, Plots plots, Strings strings) {
     this.eventLog = eventLog;
     this.plots = plots;
+    this.strings = strings;
+  }
+
+  @EventHandler(ignoreCancelled = true)
+  public void onOpen(InventoryOpenEvent event) {
+    if (!(event.getPlayer() instanceof Player player)) {
+      return;
+    }
+    if (!isStallChest(event.getInventory())) {
+      return;
+    }
+    if (RolePolicy.mayOpenChest(eventLog.roleOf(player.getName()))) {
+      return;
+    }
+    event.setCancelled(true);
+    strings.send(player, "stays-quartermaster", Map.of());
   }
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -33,6 +51,10 @@ public final class ChestListener implements Listener {
     }
     Inventory top = event.getView().getTopInventory();
     if (!isStallChest(top)) {
+      return;
+    }
+    if (!RolePolicy.mayOpenChest(eventLog.roleOf(player.getName()))) {
+      strings.send(player, "stays-quartermaster", Map.of());
       return;
     }
     int topSize = top.getSize();
@@ -105,6 +127,11 @@ public final class ChestListener implements Listener {
     }
     Inventory top = event.getView().getTopInventory();
     if (!isStallChest(top)) {
+      return;
+    }
+    if (!RolePolicy.mayOpenChest(eventLog.roleOf(player.getName()))) {
+      event.setCancelled(true);
+      strings.send(player, "stays-quartermaster", Map.of());
       return;
     }
     int topSize = top.getSize();

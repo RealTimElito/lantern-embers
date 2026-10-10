@@ -18,14 +18,36 @@ final class LanternActions {
     this.boardBook = boardBook;
   }
 
-  void join(Player player) {
-    eventLog.join(player.getName(), OffsetDateTime.now());
-    String prefix = strings.text("tab-prefix");
-    if (prefix != null) {
-      player.playerListName(Component.text(prefix + player.getName()));
+  void join(Player player, String role, String feed) {
+    eventLog.join(player.getName(), role, feed, OffsetDateTime.now());
+    String tab = strings.format("tab-mark", Map.of("role", role, "player", player.getName()));
+    if (tab != null) {
+      player.playerListName(Component.text(tab));
     }
-    MarkItems.giveIfAbsent(player, strings);
+    if (RolePolicy.mayMark(role)) {
+      MarkItems.giveIfAbsent(player, strings);
+    }
+    if (RolePolicy.mayPhrase(role)) {
+      PhraseItems.giveIfAbsent(player, strings);
+    }
     boardBook.give(player);
+  }
+
+  void lists(Player player) {
+    strings.send(player, "join-lists", Map.of());
+  }
+
+  void feedLists(Player player) {
+    strings.send(player, "feed-lists", Map.of());
+  }
+
+  void changeFeed(Player player, String feed) {
+    if (!eventLog.inHour(player.getName())) {
+      feedLists(player);
+      return;
+    }
+    String role = eventLog.roleOf(player.getName());
+    eventLog.feed(player.getName(), role, feed, OffsetDateTime.now());
   }
 
   void stop(Player player) {
@@ -38,30 +60,59 @@ final class LanternActions {
     strings.send(player, "draft-held", Map.of());
   }
 
+  /** Phrase stick. The offer is stored and not sent. */
+  void offerQuiet(Player player, String draft) {
+    eventLog.offer(player.getName(), draft);
+  }
+
   void needsWords(Player player) {
     strings.send(player, "offer-needs-words", Map.of());
   }
 
   void yes(Player player) {
-    EventLog.Confirm confirm = eventLog.confirmLatest(player.getName());
-    if (!confirm.pending()) {
+    LogEvent pending = eventLog.pendingFor(player.getName());
+    if (pending == null) {
       strings.send(player, "yes-waiting", Map.of());
       return;
     }
-    if (!confirm.line()) {
+    String role = eventLog.roleOf(player.getName());
+    if ("mark".equals(pending.type()) && !RolePolicy.mayConfirmMark(role)) {
+      strings.send(player, "stays-lookout", Map.of());
+      return;
+    }
+    if ("offer".equals(pending.type()) && !RolePolicy.mayConfirmOffer(role)) {
+      strings.send(player, "stays-storykeeper", Map.of());
+      return;
+    }
+    EventLog.Confirm confirm = eventLog.confirmLatest(player.getName());
+    if (!confirm.pending() || !confirm.line()) {
       return;
     }
     String text = confirm.text() == null ? "" : confirm.text();
-    Map<String, String> published = Map.of("player", player.getName(), "text", text);
-    Map<String, String> summary = Map.of("player", player.getName());
+    deliver(player.getName(), text);
+  }
+
+  private void deliver(String author, String text) {
+    Map<String, String> published = Map.of("player", author, "text", text);
+    Map<String, String> summary = Map.of("player", author);
     for (Player online : Bukkit.getOnlinePlayers()) {
-      boolean joined = eventLog.inHour(online.getName());
       boolean named = mentioned(text, online.getName());
-      if (!joined && !named) {
+      if (!eventLog.inHour(online.getName())) {
+        if (named) {
+          strings.sendGold(online, "published-line", published);
+        }
+        continue;
+      }
+      String feed = eventLog.feedOf(online.getName());
+      if ("summary".equals(feed)) {
+        strings.send(online, "summary-line", summary);
+        continue;
+      }
+      boolean authorSelf = online.getName().equals(author);
+      if ("mentions".equals(feed) && !authorSelf && !named) {
         continue;
       }
       strings.sendGold(online, "published-line", published);
-      strings.send(online, "summary-line", summary);
     }
   }
 

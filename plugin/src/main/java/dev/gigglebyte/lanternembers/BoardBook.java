@@ -88,6 +88,16 @@ public final class BoardBook {
         current.append(join);
       }
     }
+    String held = eventLog.heldDraft(player.getName());
+    if (held != null) {
+      String row = strings.format("held-phrase", Map.of("text", held));
+      if (row != null) {
+        if (current.length() > 0) {
+          current.append('\n');
+        }
+        current.append(row);
+      }
+    }
     List<String> pages = new ArrayList<>();
     appendSection(
         pages,

@@ -1,0 +1,97 @@
+world folder: /tmp/lantern-embers-proof4213382761990122204
+registry stand-in: CHEST
+
+# Phase 1
+eventLog.join("Ada", lookout, full, 2026-10-10T11:24:53.192301815+02:00)
+join event: {id=c3796009-0634-4225-8370-fb4fc1d2917f, type=join, player=Ada, role=lookout, feed=full, time=2026-10-10T11:24:53.192301815+02:00}
+pages after eventLog.join:
+Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.
+Ada joined the hour.
+Lanterns
+Lanterns wait on the posts.
+Lines
+Lines show here after yes.
+Chests
+Chest moves show here.
+Open marks
+Open marks show here.
+LanternActions.join(ada)
+join() threw: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
+  at: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
+playerListName: lookout Ada
+
+# Phase 2
+eventLog.mark Ada world 12 65 18 north
+mark event: {id=a715757c-282a-49b1-93c3-7c5365c01783, type=mark, player=Ada, role=, feed=, time=, world=world, x=12, y=65, z=18, face=north, draft=, target=, text=, colour=, state=, item=, count=, direction=}
+Bea break cancelled: true
+Bea protect text: That edge stays with Ada.
+Ada break cancelled: false
+piston cancelled: true
+SIGN.md contains the protect template
+
+# Phase 3
+eventLog.join Bea builder mentions
+offer roof line @Bea
+offer event: {id=c241c1a0-1882-4b41-9428-653fecfc7388, type=offer, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=roof line @Bea, target=, text=, colour=, state=, item=, count=, direction=}
+yes
+confirm: {id=ade6b10f-f13d-422b-9cc7-6f022f448d38, type=confirm, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=c241c1a0-1882-4b41-9428-653fecfc7388, text=, colour=, state=, item=, count=, direction=}
+line: {id=728e5029-0085-4b28-95c1-c19e24611fcc, type=line, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=roof line @Bea, colour=gold, state=, item=, count=, direction=}
+offer secret beam
+
+# Phase 4
+stall lantern new events: 1
+presence: presence Ada lit
+dark: {id=1aef3576-3bf1-43d2-a3ef-cf2c5b9fde71, type=presence, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=, colour=, state=unlit, item=, count=, direction=}
+chest: {id=13f67bc7-219a-40e4-8ed7-ef4180decd85, type=chest, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=, colour=, state=, item=OAK_PLANKS, count=4, direction=in}
+other chest events added: 0
+offer porch
+confirm lantern click
+porch confirm: {id=982730b2-a8aa-447f-aeb6-7c4247320c29, type=confirm, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=1c06ad90-1de9-4849-b11f-241560d55472, text=, colour=, state=, item=, count=, direction=}
+porch line: {id=45eb8d84-f127-4086-832f-1c9e96bbe65f, type=line, player=Ada, role=, feed=, time=, world=, x=, y=, z=, face=, draft=, target=, text=porch, colour=gold, state=, item=, count=, direction=}
+final pages:
+Lantern is the live hour. Embers is the week between hours. Join with one command. Mark an edge with the stick. Yes with one command or the lantern by the board. Light a stall lantern to leave it lit.
+Ada joined the hour.
+Held: secret beam
+Lanterns
+Ada lantern unlit.
+Lines
+Ada: roof line @Bea
+Ada: porch
+Chests
+Ada in 4 OAK_PLANKS
+Open marks
+Ada 12 65 18 north
+
+# Source scan
+source scan: none
+
+Ada chat:
+  Draft held.
+  Ada: roof line @Bea
+  Draft held.
+  Draft held.
+  Ada: porch
+Bea chat:
+  That edge stays with Ada.
+  Ada: roof line @Bea
+  Ada: porch
+Ada tab: [lookout Ada]
+book-give: java.lang.ClassCastException: class jdk.proxy3.$Proxy72 cannot be cast to class org.bukkit.inventory.ItemType (jdk.proxy3.$Proxy72 is in module jdk.proxy3 of loader 'app'; org.bukkit.inventory.ItemType is in unnamed module of loader 'app')
+log:
+{"id":"c3796009-0634-4225-8370-fb4fc1d2917f","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:24:53.192301815+02:00"}
+{"id":"d101f0f7-4819-4991-8c23-59b9df9b5ab6","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:24:53.194230080+02:00"}
+{"id":"a715757c-282a-49b1-93c3-7c5365c01783","type":"mark","player":"Ada","world":"world","x":12,"y":65,"z":18,"face":"north"}
+{"id":"22db05a5-c9bf-4cd6-9745-221abe47bc9f","type":"join","player":"Bea","role":"builder","feed":"mentions","time":"2026-10-10T11:24:53.247454163+02:00"}
+{"id":"c241c1a0-1882-4b41-9428-653fecfc7388","type":"offer","player":"Ada","draft":"roof line @Bea"}
+{"id":"ade6b10f-f13d-422b-9cc7-6f022f448d38","type":"confirm","player":"Ada","target":"c241c1a0-1882-4b41-9428-653fecfc7388"}
+{"id":"728e5029-0085-4b28-95c1-c19e24611fcc","type":"line","player":"Ada","text":"roof line @Bea","colour":"gold"}
+{"id":"ea00db26-bf22-4cc5-bd4e-18fa62b575a5","type":"offer","player":"Ada","draft":"secret beam"}
+{"id":"d894d1aa-b518-45ce-9f2a-b6e90a9ab5ee","type":"presence","player":"Ada","state":"lit"}
+{"id":"1aef3576-3bf1-43d2-a3ef-cf2c5b9fde71","type":"presence","player":"Ada","state":"unlit"}
+{"id":"28f79b3e-3bd8-4b40-b1aa-ee4f55b93006","type":"join","player":"Ada","role":"quartermaster","feed":"full","time":"2026-10-10T11:24:53.319892126+02:00"}
+{"id":"13f67bc7-219a-40e4-8ed7-ef4180decd85","type":"chest","player":"Ada","item":"OAK_PLANKS","count":4,"direction":"in"}
+{"id":"dd8bb0d6-78ae-4ba1-9aae-c1b12d7f37c6","type":"join","player":"Ada","role":"lookout","feed":"full","time":"2026-10-10T11:24:53.431431856+02:00"}
+{"id":"7f6ebd20-cb7a-40bf-81f4-ce9337d5c134","type":"feed","player":"Bea","role":"builder","feed":"full","time":"2026-10-10T11:24:53.431560594+02:00"}
+{"id":"1c06ad90-1de9-4849-b11f-241560d55472","type":"offer","player":"Ada","draft":"porch"}
+{"id":"982730b2-a8aa-447f-aeb6-7c4247320c29","type":"confirm","player":"Ada","target":"1c06ad90-1de9-4849-b11f-241560d55472"}
+{"id":"45eb8d84-f127-4086-832f-1c9e96bbe65f","type":"line","player":"Ada","text":"porch","colour":"gold"}

@@ -10,7 +10,8 @@ Every event has `id` (UUID string) and `type`. Every event has `player` (the act
 
 | type | fields | who may write it |
 | --- | --- | --- |
-| join | player, role, feed, time | Plugin, after `/lantern join` only |
+| join | player, role, feed, time | Plugin, after `/lantern join <role> <feed>` only |
+| feed | player, role, feed, time | Plugin, after `/lantern feed <mode>` |
 | mark | player, world, x, y, z, face | Plugin, after the mark stick clicks a block face |
 | offer | player, draft | Plugin, never sent to anyone else |
 | confirm | player, target | Plugin, only `/lantern yes` or a click on the confirm lantern |
@@ -19,7 +20,7 @@ Every event has `id` (UUID string) and `type`. Every event has `player` (the act
 | line | player, text, colour | Plugin, only after confirm of an offer |
 | chest | player, item, count, direction | Plugin, stall chest only |
 
-`role` is `builder`. `feed` is `lantern`. The player does not type either.
+`role` is `lookout`, `builder`, `quartermaster`, or `storykeeper`. `feed` is `full`, `mentions`, or `summary`. An old join with role `builder` and feed `lantern` still reads: builder, and full. New fields are optional on old lines. `feed` events do not leave the hour.
 
 `face` is `up`, `down`, `north`, `south`, `east`, or `west`.
 

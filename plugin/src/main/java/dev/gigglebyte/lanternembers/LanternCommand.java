@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** /lantern join, stop, offer, and yes. */
+/** /lantern join, stop, offer, yes, and feed. */
 public final class LanternCommand implements CommandExecutor, TabCompleter {
-  private static final List<String> TOKENS = List.of("join", "stop", "offer", "yes");
+  private static final List<String> TOKENS = List.of("join", "stop", "offer", "yes", "feed");
 
   private final LanternActions actions;
 
@@ -35,10 +35,21 @@ public final class LanternCommand implements CommandExecutor, TabCompleter {
     }
     switch (args[0]) {
       case "join" -> {
-        if (args.length != 1) {
-          return Usage.send(player, command);
+        if (args.length != 3
+            || !RolePolicy.validRole(args[1])
+            || !RolePolicy.validFeed(args[2])) {
+          actions.lists(player);
+          return true;
         }
-        actions.join(player);
+        actions.join(player, args[1], args[2]);
+        return true;
+      }
+      case "feed" -> {
+        if (args.length != 2 || !RolePolicy.validFeed(args[1])) {
+          actions.feedLists(player);
+          return true;
+        }
+        actions.changeFeed(player, args[1]);
         return true;
       }
       case "stop" -> {
@@ -80,12 +91,32 @@ public final class LanternCommand implements CommandExecutor, TabCompleter {
       @NotNull Command command,
       @NotNull String label,
       @NotNull String[] args) {
-    if (args.length > 1) {
-      return List.of();
+    if (args.length <= 1) {
+      String prefix = args.length == 0 ? "" : args[0].toLowerCase(Locale.ROOT);
+      List<String> matches = new ArrayList<>();
+      for (String token : TOKENS) {
+        if (token.startsWith(prefix)) {
+          matches.add(token);
+        }
+      }
+      return matches;
     }
-    String prefix = args.length == 0 ? "" : args[0].toLowerCase(Locale.ROOT);
+    if (args.length == 2 && "join".equals(args[0])) {
+      return complete(RolePolicy.ROLES, args[1]);
+    }
+    if (args.length == 3 && "join".equals(args[0])) {
+      return complete(RolePolicy.FEEDS, args[2]);
+    }
+    if (args.length == 2 && "feed".equals(args[0])) {
+      return complete(RolePolicy.FEEDS, args[1]);
+    }
+    return List.of();
+  }
+
+  private static List<String> complete(List<String> tokens, String typed) {
+    String prefix = typed.toLowerCase(Locale.ROOT);
     List<String> matches = new ArrayList<>();
-    for (String token : TOKENS) {
+    for (String token : tokens) {
       if (token.startsWith(prefix)) {
         matches.add(token);
       }

@@ -67,12 +67,21 @@ public final class EventLog {
     return List.copyOf(events);
   }
 
-  public synchronized void join(String player, OffsetDateTime time) {
+  public synchronized void join(String player, String role, String feed, OffsetDateTime time) {
     LinkedHashMap<String, Object> extra = new LinkedHashMap<>();
-    extra.put("role", "builder");
-    extra.put("feed", "lantern");
+    extra.put("role", role);
+    extra.put("feed", feed);
     extra.put("time", time.toString());
     append("join", player, extra);
+  }
+
+  /** Join-shaped feed change. Does not leave the hour. */
+  public synchronized void feed(String player, String role, String feed, OffsetDateTime time) {
+    LinkedHashMap<String, Object> extra = new LinkedHashMap<>();
+    extra.put("role", role == null ? "" : role);
+    extra.put("feed", feed);
+    extra.put("time", time.toString());
+    append("feed", player, extra);
   }
 
   public synchronized void mark(
@@ -193,8 +202,60 @@ public final class EventLog {
     return state;
   }
 
-  public synchronized String markOwner(String world, int x, int y, int z) {
-    String owner = null;
+  public synchronized String roleOf(String player) {
+    String role = null;
+    for (LogEvent event : events) {
+      if (!player.equals(event.player())) {
+        continue;
+      }
+      if (!"join".equals(event.type()) && !"feed".equals(event.type())) {
+        continue;
+      }
+      String value = event.get("role");
+      if (value != null && !value.isEmpty()) {
+        role = value;
+      }
+    }
+    return role;
+  }
+
+  /** Latest feed. Old lines that say lantern are read as full. */
+  public synchronized String feedOf(String player) {
+    String feed = null;
+    for (LogEvent event : events) {
+      if (!player.equals(event.player())) {
+        continue;
+      }
+      if (!"join".equals(event.type()) && !"feed".equals(event.type())) {
+        continue;
+      }
+      String value = event.get("feed");
+      if (value == null || value.isEmpty()) {
+        continue;
+      }
+      feed = "lantern".equals(value) ? "full" : value;
+    }
+    return feed;
+  }
+
+  /** Latest unconfirmed offer draft for this player, or null. */
+  public synchronized String heldDraft(String player) {
+    Set<String> confirmed = confirmedIds();
+    String draft = null;
+    for (LogEvent event : events) {
+      if (!player.equals(event.player()) || !"offer".equals(event.type())) {
+        continue;
+      }
+      if (event.id() == null || confirmed.contains(event.id())) {
+        continue;
+      }
+      draft = event.get("draft");
+    }
+    return draft;
+  }
+
+  public synchronized Edge edgeAt(String world, int x, int y, int z) {
+    LogEvent latest = null;
     for (LogEvent event : events) {
       if (!"mark".equals(event.type())) {
         continue;
@@ -203,10 +264,22 @@ public final class EventLog {
         continue;
       }
       if (event.integer("x") == x && event.integer("y") == y && event.integer("z") == z) {
-        owner = event.player();
+        latest = event;
       }
     }
-    return owner;
+    if (latest == null || latest.id() == null) {
+      return null;
+    }
+    boolean confirmed = confirmedIds().contains(latest.id());
+    return new Edge(latest.player(), confirmed);
+  }
+
+  public synchronized String markOwner(String world, int x, int y, int z) {
+    Edge edge = edgeAt(world, x, y, z);
+    if (edge == null) {
+      return null;
+    }
+    return edge.marker();
   }
 
   private void presence(String player, String state) {
@@ -215,13 +288,22 @@ public final class EventLog {
     append("presence", player, extra);
   }
 
-  private LogEvent pending(String player) {
+  private Set<String> confirmedIds() {
     Set<String> confirmed = new HashSet<>();
     for (LogEvent event : events) {
       if ("confirm".equals(event.type()) && event.get("target") != null) {
         confirmed.add(event.get("target"));
       }
     }
+    return confirmed;
+  }
+
+  public synchronized LogEvent pendingFor(String player) {
+    return pending(player);
+  }
+
+  private LogEvent pending(String player) {
+    Set<String> confirmed = confirmedIds();
     LogEvent found = null;
     for (LogEvent event : events) {
       if (!player.equals(event.player())) {
@@ -283,6 +365,25 @@ public final class EventLog {
       out.write(text.getBytes(StandardCharsets.UTF_8));
       out.flush();
       out.getFD().sync();
+    }
+  }
+
+  /** One marked block and whether yes has confirmed that mark. */
+  public static final class Edge {
+    private final String marker;
+    private final boolean confirmed;
+
+    Edge(String marker, boolean confirmed) {
+      this.marker = marker;
+      this.confirmed = confirmed;
+    }
+
+    String marker() {
+      return marker;
+    }
+
+    boolean confirmed() {
+      return confirmed;
     }
   }
 

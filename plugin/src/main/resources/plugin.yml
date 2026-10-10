@@ -6,7 +6,7 @@ load: POSTWORLD
 commands:
   lantern:
     description: Lantern hour
-    usage: /lantern <join|stop|offer|yes>
+    usage: /lantern <join|stop|offer|yes|feed>
     permission: lanternembers.use
   embers:
     description: Embers week

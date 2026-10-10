@@ -32,12 +32,18 @@ public final class LanternEmbersPlugin extends JavaPlugin {
     BoardBook boardBook = new BoardBook(strings, eventLog);
     LanternActions actions = new LanternActions(eventLog, strings, boardBook);
     PluginManager plugins = getServer().getPluginManager();
-    plugins.registerEvents(new MarkListener(eventLog), this);
+    PhraseItems phrases = new PhraseItems();
+    plugins.registerEvents(new MarkListener(eventLog, strings), this);
+    plugins.registerEvents(new PhraseListener(eventLog, strings, phrases, actions), this);
     plugins.registerEvents(new ProtectListener(eventLog, strings), this);
     plugins.registerEvents(new LanternInteractListener(plots, actions), this);
-    plugins.registerEvents(new ChestListener(eventLog, plots), this);
+    plugins.registerEvents(new ChestListener(eventLog, plots, strings), this);
+    plugins.registerEvents(new ChatFeedListener(eventLog), this);
     register("lantern", new LanternCommand(actions));
     register("embers", new EmbersCommand(actions, boardBook));
+    LineDigest digest = new LineDigest(eventLog, strings);
+    long period = digest.periodTicks();
+    getServer().getScheduler().runTaskTimer(this, digest::run, period, period);
   }
 
   @Override
