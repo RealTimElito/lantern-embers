@@ -14,14 +14,15 @@ Later, an AI builder may read that log and propose a ghost outline or a build. A
 
 ## Build
 
-Java 21 and Paper 1.21.11.
+Java 21 and Paper 1.21.11. A second jar targets Paper 26.2.
 
 ```bash
 cd plugin
 ./gradlew jar
+./gradlew jar262
 ```
 
-The jar is `plugin/build/libs/LanternEmbers-1.0.0.jar`. The realm layout is `world/layout.mcfunction`. Coordinates are in `world/README.md`.
+The 1.21 jar is `plugin/build/libs/LanternEmbers-1.0.0.jar`. The 26.2 jar is `plugin/build/libs/LanternEmbers-1.0.0-26.2.jar`. The realm layout is `world/layout.mcfunction`. Coordinates are in `world/README.md`.
 
 ## Hour
 
