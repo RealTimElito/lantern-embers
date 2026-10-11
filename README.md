@@ -10,6 +10,8 @@ The happy path is one confirm: a command, a stick click, or a lantern. A draft i
 
 The hour book and the spawn board are views of one append-only log, `world/lantern-embers/events.jsonl`.
 
+Later, an AI builder may read that log and propose a ghost outline or a build. A proposal is not placed, and it is not a confirm, until the next person says yes. A decline writes nothing. That worker is not in this jar.
+
 ## Build
 
 Java 21 and Paper 1.21.11.
