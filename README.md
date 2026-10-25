@@ -2,15 +2,17 @@
 
 Lantern is the live hour. Embers is the week between hours.
 
-A small group shares one Minecraft build. In the hour they mark a block and keep a short line private until they confirm it. In the week they light a lantern. The log names the person who did each thing. A quiet week still has that lantern. The log does not call the week empty.
+A small whitelist group shares one Minecraft build. The hour is for being there together: mark a block, hold a short line, confirm it. The week is a lantern left on a stall, so the place still shows who was here. A quiet week keeps that lantern. The log names the person who acted. It does not call the week empty, missed, or a streak.
 
-This is one Paper plugin and a whitelist realm. It is not a client mod and not a chatbot. The week works with no client mod. EyeMine is optional. The plugin still loads without it.
+Few clicks still count. The person who confirmed the line is the name on it, even when the path was one stick, one command, or one lantern. Typing a sentence is the long way. A draft stays with the writer until yes, so the group only hears what they chose to publish. A marked block stays with the person who marked it until they confirm it.
 
-A draft is not chat until yes. The plugin does not place blocks, guess tiredness, keep streaks, or call a model. The summary line is a fixed template over the log.
+The plugin does not place blocks, guess tiredness, keep streaks, or call a model. The summary line is a fixed template over the log. The server never says a model built the place. Later, an AI builder may read the log and propose an outline or a build. A proposal is not placed until a person says yes. Saying no writes nothing. That worker is not in this jar.
 
-The hour book and the spawn board both read one append-only log, `world/lantern-embers/events.jsonl`.
+This is one Paper plugin and a whitelist realm. It is not a client mod and not a chatbot. The week works in ordinary Minecraft. EyeMine can be used for the hour. The plugin still loads without it, and it does not replace that client.
 
-Later, an AI builder may read that log and propose an outline or a build. A proposal is not placed until a person says yes. Saying no writes nothing. That worker is not in this jar.
+The hour book and the spawn board both read one append-only log, `world/lantern-embers/events.jsonl`. One log, so the hour and the week are the same story.
+
+The realm is a walk, not a puzzle. Spawn, a board, one confirm lantern, and four stalls with a chest and a lantern each. Paths are flat vanilla blocks, with clear air overhead, so the same place works with a gaze client and without one.
 
 ## Build
 
